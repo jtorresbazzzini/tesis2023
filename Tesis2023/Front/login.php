@@ -97,40 +97,40 @@ body, html {
       <a href="/tesis2023/index.php" class="w3-bar-item w3-button"><i class="fa xfa-solid fa-arrow-left"></i> Volver</a>
 </div>
 
-<form action="/tesis2023/front/menuprof.php" method="post">
-  <div class="imgcontainer">    
-    <!--img src="../Imagenes/fondo4.jpg" alt="Avatar" class="avatar"!-->
-  </div>
+  <form action="/tesis2023/front/menuprof.php" method="post">
+    <div class="imgcontainer">    
+      <!--img src="../Imagenes/fondo4.jpg" alt="Avatar" class="avatar"!-->
+    </div>
 
-  <div class="container">
-    <label for="uname"><b>DNI</b></label>
-    <input type="text" placeholder="Ingresar DNI" name="uname" required>
+    <div class="container">
+      <label for="uname"><b>DNI</b></label>
+      <input type="text" placeholder="Ingresar DNI" name="uname" required>
 
-    <label for="psw"><b>Contraseña</b></label>
-    <input type="password" placeholder="Ingresar contraseña" name="psw" required>
+      <label for="psw"><b>Contraseña</b></label>
+      <input type="password" placeholder="Ingresar contraseña" name="psw" required>
+      
+      <label for="tipo"><b>Rol</b></label>
+      <br>
+      <input type="radio" name="rol" id="contact_email" value="Alumno" />
+      <label for="contact_email">Alumno</label>
+      <input type="radio" name="rol" id="contact_phone" value="Profesor" />
+      <label for="contact_phone">Profesor</label>
+      <input type="radio" name="rol" id="contact_phone" value="Secretario" />
+      <label for="contact_phone">Secretario</label>
+      <input type="radio" name="rol" id="contact_phone" value="Administrador" />
+      <label for="contact_phone">Adminisrador</label>
     
-    <label for="tipo"><b>Rol</b></label>
-    <br>
-    <input type="radio" name="rol" id="contact_email" value="Alumno" />
-    <label for="contact_email">Alumno</label>
-    <input type="radio" name="rol" id="contact_phone" value="Profesor" />
-    <label for="contact_phone">Profesor</label>
-    <input type="radio" name="rol" id="contact_phone" value="Secretario" />
-    <label for="contact_phone">Secretario</label>
-    <input type="radio" name="rol" id="contact_phone" value="Administrador" />
-    <label for="contact_phone">Adminisrador</label>
-   
-    <button type="submit">Ingresar</button>
-    <!-- <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
-  </div>
+      <button type="submit">Ingresar</button>
+      <!-- <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    </div>
 
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
-  </div> -->
-</form>
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+    </div> -->
+  </form>
 
 </body>
 </html>
