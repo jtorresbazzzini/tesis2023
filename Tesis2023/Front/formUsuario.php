@@ -1,5 +1,5 @@
 <?php include('..\backend\db.php');
-include "..\includes\modal.php";
+
 ?>  
 
 <!DOCTYPE html>
@@ -11,105 +11,152 @@ include "..\includes\modal.php";
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<script src="../js/jquery.min.js";></script>
+<!-- <script src="../js/jquery.min.js";></script> -->
 <style>
 /* Estilos para el formulario emergente */
-.form-popup {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: grey;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=number],input[type=date] {
   width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
 }
 
-.form-container {
-  max-width: 400px;
-  padding: 20px;
-  background-color: #fff;
-  margin: 100px auto;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
 }
 
-/* Estilos adicionales */
-.btn {
-  background-color: #4CAF50;
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #04AA6D;
   color: white;
-  padding: 12px 20px;
+  padding: 16px 20px;
+  margin: 8px 0;
   border: none;
   cursor: pointer;
   width: 100%;
-  margin-bottom: 10px;
+  opacity: 0.9;
 }
 
-.cancel {
-  background-color: #ccc;
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
 }
 </style>
 
+<?php 
+     if ($_SERVER["REQUEST_METHOD"] == "POST") 
+       {
+        // $usu_dni= $_POST['usu_dni']; 
+        // $usu_ape_nom = $_POST['usu_ape_nom']; 
+        // $usu_fecha_nac = $_POST['usu_fecha_nac']; 
+        // $usu_direccion = $_POST['usu_direccion']; 
+        // $usu_email = $_POST['usu_email']; 
+        // $usu_cel = $_POST['usu_cel']; 
+        // $usu_contacto = $_POST['usu_contacto']; 
+        // $usu_tel_contacto = $_POST['usu_tel_contacto']; 
+        // $usu_pass = $_POST['usu_pass']; 
+        // $usu_estado = 'Activo';
+         $usu_profe =isset( $_POST['usu_profe'])?1:0; 
+         $usu_alumno = isset($_POST['usu_alumno'])?1:0; 
+         $usu_director = isset($_POST['usu_director'])?1:0; 
+         $usu_secre = isset($usu_secre)?1:0; 
+
+          if(empty( $_POST['usu_dni'])){
+            $query="INSERT INTO `usuario`(`usu_dni`, `usu_ape_nom`, `usu_fecha_nac`, `usu_direccion`, 
+          `usu_email`, `usu_cel`, `usu_contacto`, `usu_tel_contacto`, `usu_pass`, `usu_estado`, 
+           `usu_profe`, `usu_alumno`, `usu_director`, `usu_secre`) VALUES ('".$_POST['usu_dni']."','".$_POST['usu_ape_nom']."','".$_POST['usu_fecha_nac']."','".$_POST['usu_direccion']."','".$_POST['usu_email']."','".$_POST['usu_cel']."','".$_POST['usu_contacto']."','".$_POST['usu_tel_contacto']."','".$_POST['usu_pass']."','activo','$usu_profe','$usu_alumno','$usu_director','$usu_secre')";
+          }else{
+            $query = "UPDATE `usuario` SET `usu_ape_nom`='".$_POST['usu_ape_nom']."',`usu_fecha_nac`='".$_POST['usu_fecha_nac']."',`usu_direccion`='".$_POST['usu_direccion']."',`usu_email`='".$_POST['usu_email']."',`usu_cel`='".$_POST['usu_cel']."',`usu_contacto`='".$_POST['usu_contacto']."',`usu_tel_contacto`='".$_POST['usu_tel_contacto']."',`usu_pass`='".$_POST['usu_pass']."',`usu_estado`='Activo',`usu_profe`='$usu_profe',`usu_alumno`='$usu_alumno ',`usu_director`='$usu_director',`usu_secre`='$usu_secre' WHERE `usu_dni`='".$_POST['usu_dni']."' " ;
+          }
+
+          if(mysqli_query($conn, $query)==true){
+            echo "se guardaron corectamente los datos";
+          }else{echo "error en el ingreso";}}
+     ?>    
+
 
 <body>
-<div class="w3-container w3-light-grey" style="padding:128px 16px" id="contact">
-   <!--inicio de listado-->
-  <div class="w3-container">
-    <table>
-      <tr>
-        <th>Nombre y Apellido</th>
-        <th>DNI</th>
-        <th>Email
-        <th>Perfiles</th>
-        <th></th>
-        <th></th>
-      </tr>
-      <tbody>
-        <?php
-        $consu="SELECT * FROM usuario   ";
-        $varUsu = mysqli_query($conn,$consu); 
-        while($row =  mysqli_fetch_array($varUsu)){?>
-        <tr>
-          <th><?php echo $row['usu_ape_nom'];?> </th>
-          <th><?php echo $row['usu_dni'];?> </th>
-          <th><?php echo $row['usu_email'];?> </th>
-          <th><?php if($row['usu_profe']== 1)
-                      echo "Profesor";
-                      else
-                        {if($row['usu_alumno']== 1)
-                        echo "Alumno";
-                          else
-                            {if($row['usu_secre']== 1)
-                               echo "Secretario/a";
-                              else
-                         echo "Director";}}?> </th>
-          <!-- <th><a href="../backend/B_formUsuario.php?id=" id=editar class="w3-button w3-black">Editar</a></th> -->
-          <th><a class="w3-button w3-black edit_usuario" usuario ="<?php echo $row['usu_dni']; ?> "href="#" >Editar</a></th>
-        </tr>
 
-       <?php } ?>
-      </tbody>
-    </table>
-    
-
-  </div>
-    <!--fin de formulario-->
-
-
+   
    <!--inicio de formulario-->
-<!-- <div class="w3-container w3-light-grey" style="padding:128px 16px" id="contact"> -->
+  <div class="container" style="margin-top:48px">
   <h3 class="w3-center">Nuevo Usuario</h3>
-  <!--<p class="w3-center w3-large"></p>-->
-  <div style="margin-top:48px">
     <br>
-    
-    <img src="/w3images/map.jpg" class="w3-image w3-greyscale" style="width:100%;margin-top:48px">
+    <form class="" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" >
+      <!-- <h1><i class="fas fa-cubes" style="font-size:45px;">Formulario Usuario</i></h1> -->
+      
+      <p><input class="w3-input w3-border" type="text" placeholder="Nombre Completo" id="usu_ape_nom" name="usu_ape_nom" required ></p>
+      <p><input class="w3-input w3-border" type="text" placeholder="Email" id="usu_email" required name="usu_email"></p> 
+      
+      <p><input class="w3-input w3-border" type="number" placeholder="DNI" id="usu_dni" required name="usu_dni"></p>
+      <p><input class="w3-input w3-border" type="date" placeholder="Fecha de Nacimiento" id="usu_fecha_nac" required name="usu_fecha_nac"></p>
+      <p><input class="w3-input w3-border" type="number" placeholder="celular" id="usu_cel" required name="usu_cel"></p>
+      <p><input class="w3-input w3-border" type="text" placeholder="Domicilio" id="usu_direccion" required name="usu_direccion"></p>
+      
+      <!-- <p><input class="w3-input w3-border" type="text" placeholder="Estado" id="usu_direccion" required name="usu_direccion"></p> -->
+      <p><input class="w3-input w3-border" type="text" placeholder="Ingrese clave" id="usu_pass" required name="usu_pass"></p>
+      <input type="checkbox" id="usu_alumno" name="usu_alumno" value=1>
+      <label for="usu_alumno">Alumno</label>
+      <input type="checkbox" id="usu_prof" name="usu_prof" value="1">
+      <label for="usu_prof">Profesor</label>
+      <input type="checkbox" id="usu_secre" name="usu_secre" value="1">
+      <label for="usu_secre">Secretario</label>
+      <input type="checkbox" id="usu_director" name="usu_directot" value="1">
+      <label for="usu_director">Director</label>
+      
+      <p><input class="w3-input w3-border" type="text" placeholder="Usuario contacto" id="usu_contacto"  name="usu_contacto"></p>
+      <p><input class="w3-input w3-border" type="number" placeholder="Telefono de contacto usuario" id="usu_tel_contacto"  name="usu_tel_contacto"></p>
+      <p>
+        <button class="w3-button w3-black" name="guardar" id="guardar" type="submit">
+          <i class="fa fa-paper-plane"></i> Guardar
+        </button>
+        <a class="w3-button w3-black" name="volver" id="volver" href="menuSecre.php">
+          <i class="fa fa-paper-plane"></i> Volver
+        </a>
+      </p>
+    </form> 
+   
   </div>
 </div>
       
   
-  <script src="../js/usuario.js";></script>
+  <!-- <script src="../js/usuario.js";></script> -->
     
     
 </body>
