@@ -152,7 +152,7 @@ input[type=text]:focus {
 
 <!-- tabla de alumnos -->
 <div class="w3-container">
-    <div class="contenedorBuscadorAlta ">
+  <div class="contenedorBuscadorAlta ">
     <p class=""><h2>Menú Secretario</h2> <a href="formUsuario.php" type="button" class="btn btn-dark">Alta Usuario</a></p>  
     <!-- inicio de buscador -->
     <form>
@@ -160,52 +160,44 @@ input[type=text]:focus {
     </form>
     <!-- fin de buscador -->
     </div>
-  
+  <form action="">
   <div class="w3-container w3-light-grey" style="padding:128px 16px" id="contact">
    <!--inicio de listado-->
-  <div class="w3-container">
-    <table class="w3-table w3-striped w3-bordered">
-      <tr>
-        <th>Nombre y Apellido</th>
-        <th>DNI</th>
-        <th>Email
-        <th>Perfiles</th>
-        <th>Editar</th>
-        <th>Eliminar</th>
-      </tr>
-      <tbody>
-        <?php
-        $consu="SELECT * FROM usuario   ";
-        $varUsu = mysqli_query($conn,$consu); 
-        while($row =  mysqli_fetch_array($varUsu)){?>
+    <div class="w3-container">
+      <table class="w3-table w3-striped w3-bordered">
         <tr>
-          <th><?php echo $row['usu_ape_nom'];?> </th>
-          <th><?php echo $row['usu_dni'];?> </th>
-          <th><?php echo $row['usu_email'];?> </th>
-          <th><?php if($row['usu_profe']== 1)
-                      echo "Profesor";
-                      else
-                        {if($row['usu_alumno']== 1)
-                        echo "Alumno";
-                          else
-                            {if($row['usu_secre']== 1)
-                               echo "Secretario/a";
-                              else
-                         echo "Director";}}?> </th>
-          <!-- <th><a href="../backend/B_formUsuario.php?id=" id=editar class="w3-button w3-black">Editar</a></th> -->
-          <th><a class="w3-button w3-black edit_usuario" usuario ="<?php echo $row['usu_dni']; ?>" href="#" >Editar</a></th>
-          <th><a class="w3-button btn-danger eliminar_usuario" usuario ="<?php echo $row['usu_dni'];?>" href="" >Eliminar</a></th>
+          <th>Nombre y Apellido</th>
+          <th>DNI</th>
+          <th>Email
+          <th>Perfiles</th>
+          <th>Estado</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
         </tr>
-
-       <?php } ?>
-      </tbody>
-    </table>
-    
-
-  </div>
+        <tbody>
+          <?php
+          $consu="SELECT * FROM usuario   ";
+          $varUsu = mysqli_query($conn,$consu); 
+          while($row =  mysqli_fetch_array($varUsu)){?>
+          <tr>
+            <th><?php echo $row['usu_ape_nom'];?> </th>
+            <th><?php echo $row['usu_dni'];?> </th>
+            <th><?php echo $row['usu_email'];?> </th>
+            <th><?php if($row['usu_profe']== 1)echo "Profesor";if($row['usu_alumno']== 1)
+                          echo " Alumno";if($row['usu_secre']== 1)echo " Secretario/a";if($row['usu_director']) echo " Director"; ?> </th>
+            <th><?php echo $row['usu_estado'];?></th><!-- poner el estado si es 1 es activo / si es 0 es inactivo-->
+            <th><a class="w3-button w3-black edit_usuario"  href="editFormUsuario.php?id=<?= $row['usu_dni']; ?>&$rolAlu=<?=$row['usu_alumno'] ?>& $rolSecretario=<?=$row['usu_secre'] ?>&$rolProfe=<?=$row['usu_profe'] ?>&$rolDirector=<?=$row['usu_director'] ?>" >Editar</a></th>
+            <th><button class="w3-button btn-danger eliminar_usuario" type="submit" href="../backend/editarUsuario.php?id=<?= $row['usu_dni'];?>" id="eliminar" name="eliminar" >Eliminar</button></th>
+          </tr>
+            <?php } ?>
+        </tbody>
+      </table>
+    </div>
+  </form>
 
 
 </div>
     
+
 </body>
 </html>
