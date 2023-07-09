@@ -187,7 +187,7 @@ input[type=text]:focus {
                           echo " Alumno";if($row['usu_secre']== 1)echo " Secretario/a";if($row['usu_director']) echo " Director"; ?> </th>
             <th><?php echo $row['usu_estado'];?></th><!-- poner el estado si es 1 es activo / si es 0 es inactivo-->
             <th><a class="w3-button w3-black edit_usuario"  href="editFormUsuario.php?id=<?= $row['usu_dni']; ?>&$rolAlu=<?=$row['usu_alumno'] ?>& $rolSecretario=<?=$row['usu_secre'] ?>&$rolProfe=<?=$row['usu_profe'] ?>&$rolDirector=<?=$row['usu_director'] ?>" >Editar</a></th>
-            <th><button class="w3-button btn-danger eliminar_usuario" type="submit" href="../backend/editarUsuario.php?id=<?= $row['usu_dni'];?>" id="eliminar" name="eliminar" >Eliminar</button></th>
+            <th><a class="w3-button btn-danger" href="../backend/editarUsuario.php?id=<?=$row['usu_dni']?>" id="eliminar" name="eliminar" >Eliminar</a></th>
           </tr>
             <?php } ?>
         </tbody>

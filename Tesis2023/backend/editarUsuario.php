@@ -24,9 +24,8 @@ if(isset($_POST['actualiza'])){
     
    if(mysqli_query($conn, $query1)){
      header('location:../Front/menuSecre.php');}
-    }elseif(isset($_POST['eliminar'])){
-      $query= "UPDATE `usuario`
-      SET `usu_estado` = '0' where `usu_dni` = '".$_POST['usu_dni']."'";
+    }($_POST['eliminar']){
+      $query= "UPDATE `usuario` SET `usu_estado` = 0 where `usu_dni` = '".$_POST['usu_dni']."'";
         if(mysqli_query($conn, $query)){
           header('location:../Front/menuSecre.php');
 
